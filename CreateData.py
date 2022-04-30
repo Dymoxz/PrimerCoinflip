@@ -41,7 +41,7 @@ def label():
 	fair = (122,162,100) in pixels
 
 	if fair == True:
-		with open('test.json', 'r+') as f:
+		with open('data.json', 'r+') as f:
 			data = json.load(f)
 			List = data["Fair"]
 			if tempSeq not in List:
@@ -51,7 +51,7 @@ def label():
 			json.dump(data, f, indent=4)
 			f.truncate()
 	else:
-		with open('test.json', 'r+') as f:
+		with open('data.json', 'r+') as f:
 			data = json.load(f)
 			List = data["Cheater"]
 			if tempSeq not in List:
