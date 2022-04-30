@@ -54,6 +54,7 @@ def label():
 		with open('data.json', 'r+') as f:
 			data = json.load(f)
 			List = data["Cheater"]
+			
 			if tempSeq not in List:
 				List.append(tempSeq)
 			data["Cheater"] = List
@@ -71,7 +72,7 @@ def checkGameOver():
 	
 
 
-for i in range(10):
+for i in range(200):
 	tempSeq = []
 	CheckFlipsRemaining()
 	for i in range(CheckFlipsRemaining.totalFlips):
