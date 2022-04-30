@@ -12,7 +12,7 @@ time.sleep(2)
 
 
 def CheckFlipsRemaining():
-	time.sleep(1)
+	time.sleep(1.4)
 	im=ImageGrab.grab(bbox=(1030,800,1180,830))
 	text = pytesseract.image_to_string(im, lang="eng")
 	#filter text
@@ -71,7 +71,7 @@ def checkGameOver():
 	
 
 
-for i in range(10):
+for ip in range(10):
 	tempSeq = []
 	CheckFlipsRemaining()
 	for i in range(CheckFlipsRemaining.totalFlips):
@@ -90,6 +90,6 @@ for i in range(10):
 	time.sleep(2.4)
 	checkGameOver()
 	time.sleep(0.2)
-	print(str(i +1) + ' Complete')
+	print(str(ip +1) + ' Complete')
 
 
