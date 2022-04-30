@@ -19,7 +19,7 @@ def CheckFlipsRemaining():
 	text = [int(s) for s in text.split() if s.isdigit()]
 	text = text[0]
 	flipsRemaining = text
-	print('remain:   ', flipsRemaining)
+	# print('remain:   ', flipsRemaining)
 	if flipsRemaining >= 15:
 		CheckFlipsRemaining.totalFlips = 15
 	else:
@@ -64,7 +64,7 @@ def label():
 def checkGameOver():
 	im=ImageGrab.grab(bbox=(840,960,1060,1000))
 	text = pytesseract.image_to_string(im, lang="eng")
-	print(text)
+	# print(text)
 	if 'Reset game' in text:
 		mouse.move(960, 980, absolute=True, duration=0.01)
 		mouse.click('left')
@@ -83,12 +83,13 @@ for i in range(10):
 		text = [int(s) for s in text.split() if s.isdigit()]
 		text = list(map(str, text))
 		score = '.'.join(text)
-		print(score)
+		# print(score)
 		tempSeq.append(score)
-	print(tempSeq)
+	# print(tempSeq)
 	label()
 	time.sleep(2.4)
 	checkGameOver()
 	time.sleep(0.2)
+	print(str(i +1) + ' Complete')
 
 
