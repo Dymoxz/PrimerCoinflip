@@ -19,13 +19,11 @@ time.sleep(2)
 newList = []
 tempList = []
 def checkGameOver():
-    im=ImageGrab.grab(bbox=(840,960,1060,1000))
-    text = pytesseract.image_to_string(im, lang="eng")
-    # print(text)
-    if 'Reset game' in text:
-        checkGameOver.gameOver = True
-    else:
-        checkGameOver.gameOver = False
+	im=ImageGrab.grab(bbox=(840,960,1060,1000))
+	text = pytesseract.image_to_string(im, lang="eng")
+	# print(text)
+	#if 'Reset game' in text:
+		#None
 
 
 def label():
@@ -44,7 +42,7 @@ cheatChance = 0
 dominantChance = 0
 cunt = 0 
 checkGameOver()
-while checkGameOver.gameOver == False:
+while True:
     print('---------------NEW---------------')
     newList = []
     tempList = []
@@ -52,7 +50,7 @@ while checkGameOver.gameOver == False:
     cheatChance = 0
     dominantChance = 0
     cunt = 0 
-    while dominantChance < 80:
+    while dominantChance < 90:
         oneFlip()
         time.sleep(0.2)
         #get screenshot and detect text
@@ -98,6 +96,8 @@ while checkGameOver.gameOver == False:
         else:
             dominantChance = cheatChance
             dominantText = 'Cheater'
+        print(fairCount, fairChance)
+        print(cheatCount, cheatChance)
         # print(fairChance, cheatChance)
 
         # print(len(newList))
@@ -105,6 +105,7 @@ while checkGameOver.gameOver == False:
         print(f'Chance of being {dominantText} is {dominantChance}%')
         cunt += 1
     label()
-    time.sleep(3)
+    time.sleep(2.4)
     checkGameOver()
+    time.sleep(0.2)
 
