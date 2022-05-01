@@ -32,9 +32,8 @@ def oneFlip():
 def label():
 	mouse.move(840, 980, absolute=True, duration=0.01)
 	mouse.click('left')
-	time.sleep(0.91)
-	im=ImageGrab.grab(bbox=(930,480,980,530))
-
+	time.sleep(1.05)
+	im=ImageGrab.grab(bbox=(920,480,990,530))
 	im = im.convert("RGB")
 	pixels = [i for i in im.getdata()]
 
@@ -60,7 +59,7 @@ def label():
 			f.seek(0)
 			json.dump(data, f, indent=4)
 			f.truncate()
-
+	label.exFair = fair
 def checkGameOver():
 	im=ImageGrab.grab(bbox=(840,960,1060,1000))
 	text = pytesseract.image_to_string(im, lang="eng")
@@ -71,11 +70,12 @@ def checkGameOver():
 	
 
 
-for ip in range(10):
+for ip in range(5000):
 	tempSeq = []
 	CheckFlipsRemaining()
 	for i in range(CheckFlipsRemaining.totalFlips):
 		oneFlip()
+		time.sleep(0.2)
 		#get screenshot and detect text
 		im=ImageGrab.grab(bbox=(920,500,1060,560))
 		text = pytesseract.image_to_string(im, lang="eng")
@@ -87,9 +87,9 @@ for ip in range(10):
 		tempSeq.append(score)
 	# print(tempSeq)
 	label()
-	time.sleep(2.4)
+	time.sleep(3)
 	checkGameOver()
 	time.sleep(0.2)
-	print(str(ip +1) + ' Complete')
+	print(str(ip +1) + ' Complete' + '     ' + 'Fair=' + str(label.exFair) )
 
 
