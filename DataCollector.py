@@ -66,6 +66,35 @@ def Label():
     time.sleep(0.05)
     mouse.click('left')
 
+    #CHeck if Fair or Cheater
+    time.sleep(1)
+    im=ImageGrab.grab(bbox=(910,380,1020,450))
+    im = im.convert("RGB")
+    pixels = [i for i in im.getdata()]
+    cheater = (211,89,116) in pixels
+    print(cheater)
+
+    if cheater == True:
+        with open('data.json', 'r+') as f:
+            data = json.load(f)
+            List = data["Cheater"]
+            if tempSeq not in List:
+                List.append(tempSeq)
+            data["Cheater"] = List
+            f.seek(0)
+            json.dump(data, f, indent=4)
+            f.truncate()
+    else:
+         with open('data.json', 'r+') as f:
+            data = json.load(f)
+            List = data["Fair"]
+            if tempSeq not in List:
+                List.append(tempSeq)
+            data["Fair"] = List
+            f.seek(0)
+            json.dump(data, f, indent=4)
+            f.truncate()
+
 def CheckGameOver():
     im=ImageGrab.grab(bbox=(680,480,1240,580))
     im=np.array(im)
