@@ -47,7 +47,6 @@ def CheckFlipsLeft():
     im=np.array(im)
     flipsRemaining = reader.readtext(im, detail=0)[0]
     CheckFlipsLeft.flipsNum = [int(s) for s in flipsRemaining.split() if s.isdigit()][0]
-    print(flipsRemaining)
 
 def KeepScore():
     im=ImageGrab.grab(bbox=(900,430,1100,535))
@@ -72,9 +71,10 @@ def Label():
     im = im.convert("RGB")
     pixels = [i for i in im.getdata()]
     cheater = (211,89,116) in pixels
-    print(cheater)
 
     if cheater == True:
+        Label.totalCheater += 1
+        print('CHEATER')
         with open('data.json', 'r+') as f:
             data = json.load(f)
             List = data["Cheater"]
@@ -85,7 +85,9 @@ def Label():
             json.dump(data, f, indent=4)
             f.truncate()
     else:
-         with open('data.json', 'r+') as f:
+        Label.totalFair += 1
+        print('FAIR')
+        with open('data.json', 'r+') as f:
             data = json.load(f)
             List = data["Fair"]
             if tempSeq not in List:
@@ -96,30 +98,40 @@ def Label():
             f.truncate()
 
 def CheckGameOver():
+    time.sleep(0.4)
     im=ImageGrab.grab(bbox=(680,480,1240,580))
     im=np.array(im)
     gameOverText = reader.readtext(im, detail=0)
     if 'Game Over' in gameOverText:
-        time.sleep(0.5)
-        mouse.move(950, 1130, absolute=True, duration=0.01)
+        print('lol im gay')
+        time.sleep(2)
+        mouse.move(950, 1030, absolute=True, duration=0.01)
         time.sleep(0.05)
         mouse.click('left')
 
+Label.totalFair = 0 
+Label.totalCheater = 0
 
-time.sleep(2)
-tempSeq = []
-CheckFlipsLeft()
-if CheckFlipsLeft.flipsNum < 15:
-    totalFlips = CheckFlipsLeft.flipsNum
-else:
-    totalFlips = 15
-for i in range(totalFlips):
-    OneFlip()
-    time.sleep(0.1)
-    KeepScore()
-Label()
-CheckGameOver()
-print(tempSeq)
 
-680/480
-1240/580
+for rpt in range(2):
+    time.sleep(2)
+    tempSeq = []
+    CheckFlipsLeft()
+    if CheckFlipsLeft.flipsNum < 15:
+        totalFlips = CheckFlipsLeft.flipsNum
+    else:
+        totalFlips = 15
+    for i in range(totalFlips):
+        OneFlip()
+        time.sleep(0.1)
+        KeepScore()
+    Label()
+    CheckGameOver()
+    with open('data.json', 'r') as f:
+            data = json.load(f)
+            fList = data["Fair"]
+            cList = data["Cheater"]
+            tList = fList + cList
+
+    print(f'{rpt+1} Complete   |   Total Fair: {len(fList)} ({Label.totalFair})  Total Cheater: {len(cList)} ({Label.totalCheater})')
+    print('-----------------------')
