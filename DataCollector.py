@@ -102,6 +102,9 @@ def CheckGameOver():
     im=ImageGrab.grab(bbox=(680,480,1240,580))
     im=np.array(im)
     gameOverText = reader.readtext(im, detail=0)
+    print(gameOverText)
+    if len(gameOverText) == 1:
+        gameOverText = gameOverText[0]
     if 'Game Over' in gameOverText:
         print('lol im gay')
         time.sleep(2)
@@ -113,7 +116,7 @@ Label.totalFair = 0
 Label.totalCheater = 0
 
 
-for rpt in range(2):
+for rpt in range(10):
     time.sleep(2)
     tempSeq = []
     CheckFlipsLeft()
